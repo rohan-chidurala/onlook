@@ -103,15 +103,25 @@ export class StyleManager {
         const targets: Array<StyleActionTarget> = filteredSelected.map((selectedEl) => {
             const change: Change<Record<string, StyleChange>> = {
                 updated:
-                    Object.fromEntries(
-                        Object.keys(styles).map((style) => [
-                            style,
-                            {
-                                value: styles[style as keyof CSSProperties]?.toString() ?? '',
-                                type: type === StyleChangeType.Custom ? StyleChangeType.Custom : StyleChangeType.Value,
-                            },
-                        ]),
-                    ),
+                    type === StyleChangeType.Custom
+                        ? Object.fromEntries(
+                              Object.keys(styles).map((style) => [
+                                  style,
+                                  {
+                                      value: styles[style as keyof CSSProperties]?.toString() ?? '',
+                                      type: StyleChangeType.Custom,
+                                  },
+                              ]),
+                          )
+                        : Object.fromEntries(
+                              Object.keys(styles).map((style) => [
+                                  style,
+                                  {
+                                      value: styles[style as keyof CSSProperties]?.toString() ?? '',
+                                      type: StyleChangeType.Value,
+                                  },
+                              ]),
+                          ),
                 original: Object.fromEntries(
                     Object.keys(styles).map((style) => [
                         style,
