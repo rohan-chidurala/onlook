@@ -20,6 +20,9 @@ export class FramesManager {
     private disposers: Array<() => void> = [];
     private _frames: FrameImpl[] = [];
 
+    console.log(this.selected);
+    console.log(this.frames);
+
     constructor(
         private editorEngine: EditorEngine,
         private projectManager: ProjectManager,
